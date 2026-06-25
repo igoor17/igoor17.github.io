@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HF208M4BW2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -113,17 +113,6 @@
   details > summary { list-style: none; cursor: pointer; }
   details > summary::-webkit-details-marker { display:none; }
 
-  /* portrait treatment — desaturated to match palette, color on hover */
-  .portrait-img{
-    filter: grayscale(0.5) contrast(1.04) brightness(0.94);
-    transition: filter .6s ease, transform .9s cubic-bezier(.2,.7,0,1);
-    transform: scale(1.02);
-  }
-  .portrait:hover .portrait-img{
-    filter: grayscale(0) contrast(1) brightness(1);
-    transform: scale(1.06);
-  }
-
   /* image placeholder stripes */
   .ph-stripes{
     background:
@@ -146,20 +135,20 @@ const { useState, useEffect, useRef, useMemo } = React;
 const DICT = {
   es: {
     nav: { work: "Trabajo", about: "Sobre mí", stack: "Stack", education: "Formación", contact: "Contacto" },
-    statusOpen: "Disponible · Valencia o remoto",
+    statusOpen: "Disponible para trabajar · Valencia / Remoto",
     role: "AI & Big Data Engineer",
     heroLine1: "Construyo sistemas de",
     heroLine2: "inteligencia",
     heroLine3: "que piensan en producción.",
-    heroSub: "Especializado en RAG, machine learning y soluciones sobre AWS. De la prueba de concepto al producto desplegado y funcionando.",
+    heroSub: "Especializado en RAG, pipelines de datos y arquitecturas cloud sobre AWS. De la prueba de concepto al código que aguanta tráfico real.",
     scroll: "Desplaza",
     sec01: "Trabajo seleccionado",
-    sec01sub: "Cinco proyectos, de modelos de visión a asistentes LLM en AWS.",
+    sec01sub: "Seis proyectos, de modelos de visión a plataformas de automatización full-stack.",
     sec02: "Sobre",
     sec02sub: "Perfil",
-    about1: "Técnico en Desarrollo de Aplicaciones Multiplataforma, especializado en IA y Big Data. Me muevo en la intersección entre modelos, datos y producto: diseñar la arquitectura, escribir el código y que lo que entrego funcione de verdad.",
-    about2: "Vengo del desarrollo de software — Java, web, bases de datos — así que no solo entreno modelos: sé construir el producto entero alrededor de ellos. Hoy lo aplico en proyectos de IA y datos: RAG sobre AWS Bedrock, visión por computador con TensorFlow y análisis de datos con Python. Me importa entender el porqué, no solo que funcione.",
-    about3: "Tengo muchas ganas de aprender, mejorar y crecer — y busco mi primera oportunidad full-time como AI o Data Engineer, donde aportar lo que sé y seguir descubriendo.",
+    about1: "Me formé en desarrollo de software y ahora construyo sistemas de IA que van más allá del prototipo: pipelines que procesan datos reales, agentes RAG con memoria persistente y plataformas de automatización full-stack. Mis proyectos van del clasificador de tumores cerebrales al portal de licitaciones con análisis LLM integrado.",
+    about2: "Me importan los detalles que no se ven: la latencia de una consulta, la trazabilidad de una respuesta, que el sistema falle con gracia. Trabajo con AWS Bedrock, LangChain, n8n y Python, pero la herramienta es secundaria — lo que busco es que funcione en producción.",
+    about3: "Busco un equipo donde los datos y los modelos tengan impacto real. Valencia o remoto.",
     sec03: "Stack técnico",
     sec03sub: "Herramientas que uso a diario",
     sec04: "Formación",
@@ -179,7 +168,8 @@ const DICT = {
     role_label: "ROL",
     stack_label: "STACK",
     details: "Detalles",
-    viewRepo: "Ver repositorio",
+    github_link: "GitHub ↗",
+    demo_link: "Demo en vivo ↗",
     roles: {
       flagship: "Proyecto estrella",
       ml: "Visión por computador",
@@ -190,155 +180,210 @@ const DICT = {
     projects: [
       {
         tag:"01 — FLAGSHIP",
+        title:"ConstruTECH-IA",
+        year:"2026",
+        role:"Full Stack · Automatización IA",
+        sub:"Plataforma end-to-end para gestión de licitaciones de obras públicas en Valencia, con pipeline n8n e IA integrada.",
+        body:"Solución completa para empresas constructoras: un scraper Python descarga y filtra licitaciones del PCSP (obras ≤5M€, Comunidad Valenciana) desde ZIPs con XMLs y las ingesta en PostgreSQL. n8n orquesta 5 flujos automatizados — análisis de PDFs con Ollama/Groq LLM, alertas por email/Teams/Telegram, sincronización con SharePoint y vigilancia de cambios en documentos. El portal web (FastAPI + React + Tailwind) permite revisar licitaciones con análisis de IA integrado, registrar decisiones (Presentada / En estudio / No presentada), añadir notas internas y gestionar visitas a obra. Infraestructura completa en Docker Compose con Browserless Chrome headless, autenticación JWT y sistema de auditoría de cambios.",
+        stack:["FastAPI","React","PostgreSQL","n8n","Ollama / Groq","Docker","Python","Tailwind CSS","JWT","Browserless"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/IES-Eduardo-Primo-Marques/ConstruTECH-IA"}
+        ]
+      },
+      {
+        tag:"02 — CLOUD · RAG",
         title:"F1 Engineering Assistant",
         year:"2025",
         role:"AI / Arquitectura RAG",
-        sub:"Asistente RAG sobre los reglamentos oficiales de la FIA, con AWS Bedrock Agents y Chainlit.",
-        body:"Asistente de ingeniería de Fórmula 1 que usa RAG sobre una base de conocimiento en AWS (S3) para consultar los Reglamentos Técnico, Deportivo y Financiero oficiales de la FIA. Dos perfiles adaptativos — modo Pro (respuestas técnicas con citas a artículos específicos) y modo Básico (explicaciones didácticas). Memoria persistente en SQLite con modo WAL, citas interactivas a los PDFs fuente y síntesis de voz con Amazon Polly. Construido con Chainlit y Python.",
-        stack:["AWS Bedrock","Chainlit","RAG","SQLite WAL","Amazon Polly"]
+        sub:"Asistente técnico con memoria persistente, síntesis de voz y perfiles adaptativos sobre AWS Bedrock Agents.",
+        body:"Asistente de ingeniería de Fórmula 1 construido sobre arquitectura RAG con AWS Bedrock Agents. Cuenta con dos modos: Modo Pro con respuestas técnicas y citas de artículos del reglamento FIA, y Modo Basic con explicaciones didácticas para aficionados. Memoria persistente en SQLite con modo WAL para concurrencia, síntesis de voz con Amazon Polly, y orquestación de herramientas para consultar telemetría, reglamento técnico, deportivo y financiero. Enfocado en latencia baja y trazabilidad de respuestas.",
+        stack:["AWS Bedrock","RAG","SQLite WAL","Amazon Polly","Chainlit","Python"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/F1-Engineering-Assistant"}
+        ]
       },
       {
-        tag:"02 — VISION",
-        title:"Brain Tumor Classifier",
-        year:"2024",
-        role:"Visión por computador",
-        sub:"Clasificador de tumores cerebrales sobre resonancias magnéticas — 93.19% de precisión.",
-        body:"Comparativa de distintas arquitecturas de redes neuronales convolucionales (CNN) entrenadas en TensorFlow/Keras para clasificar tumores cerebrales en cuatro clases (glioma, meningioma, pituitario y sin tumor) a partir de imágenes MRI. El mejor modelo alcanzó un 93.19% de accuracy, desplegado en una mini-aplicación web interactiva con Streamlit donde se sube una imagen y se obtiene el diagnóstico asistido.",
-        stack:["TensorFlow","Keras","CNN","Streamlit","Python"]
-      },
-      {
-        tag:"03 — MOBILE",
-        title:"GymTracker",
-        year:"2024",
-        role:"App Android nativa · TFG",
-        sub:"Proyecto final de Grado DAM — app nativa de seguimiento deportivo, defendida con éxito.",
-        body:"Aplicación Android nativa (Java + Android Studio) y proyecto final de mi Grado en DAM. Backend en Firebase (Auth, Firestore NoSQL y Storage) y geolocalización en tiempo real con OpenStreetMap (osmdroid + Overpass API). Incluye rutinas personalizadas, catálogo de ejercicios por grupo muscular con vídeos, análisis e histórico de IMC, notificaciones semanales, buscador de gimnasios sobre mapas y un comparador de suplementación. Superó un ciclo completo de pruebas de caja negra/blanca y feedback de usuario.",
-        stack:["Java","Android Studio","Firebase","OpenStreetMap"]
-      },
-      {
-        tag:"04 — DATA",
-        title:"Valencia Airbnb Insights",
+        tag:"03 — VISION",
+        title:"NeuroScan AI",
         year:"2025",
-        role:"Análisis de datos",
-        sub:"Análisis del mercado de alquiler turístico de Valencia con datos reales de Inside Airbnb.",
-        body:"Limpieza y transformación de datos de Inside Airbnb con Pandas y NumPy (filtrado de outliers, valores nulos), análisis de precios por barrio y distrito, y cruce con reseñas para medir demanda real. Visualización con Seaborn y un mapa interactivo en Plotly, presentado como slides navegables. Conclusiones accionables sobre dónde invertir y qué tipología de alojamiento funciona mejor.",
-        stack:["Python","Pandas","NumPy","Plotly","Seaborn","Jupyter"]
+        role:"Visión por computador",
+        sub:"Clasificador de tumores cerebrales con CNN — 93.19% de precisión. App web desplegada en Streamlit.",
+        body:"Red neuronal convolucional entrenada en TensorFlow/Keras para la clasificación multicategoría de tumores cerebrales sobre resonancias magnéticas (glioma, meningioma, sin tumor, pituitario). Pipeline completo: preprocesamiento, augmentación, entrenamiento con early stopping y exportación del modelo listo para inferencia. La arquitectura CNN_4B alcanzó un 93.19% de accuracy, superando el objetivo del 78%. Incluye aplicación web interactiva desplegada en Streamlit Community Cloud.",
+        stack:["TensorFlow","Keras","CNN","Streamlit","Python","NumPy"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/MRI-Brain-Tumor-Classifier"},
+          {label:"Demo en vivo ↗", href:"https://clasificador-tumores-mri.streamlit.app/"}
+        ]
       },
       {
-        tag:"05 — LLM",
+        tag:"04 — LLM",
         title:"Chatbot RAG",
         year:"2025",
         role:"LLM / RAG",
-        sub:"Q&A sobre tus propios PDFs con LangChain, Llama 3 (Groq) y ChromaDB.",
-        body:"Chatbot de preguntas y respuestas con arquitectura RAG: el usuario sube sus PDFs y pregunta sobre su contenido. Usa LangChain como framework, Llama 3 servido por Groq para la inferencia, ChromaDB como base vectorial y embeddings locales de Hugging Face para la búsqueda semántica. Cada respuesta incluye las fuentes citadas y, si no encuentra la información, lo dice honestamente. Interfaz con Chainlit. Proyecto en pareja.",
-        stack:["LangChain","Llama 3 · Groq","ChromaDB","Chainlit","Python"]
+        sub:"Q&A dinámico sobre documentos PDF con LangChain, Llama 3 (Groq), ChromaDB y embeddings locales.",
+        body:"Chatbot de preguntas y respuestas que indexa documentos PDF en un vector store ChromaDB usando embeddings locales de HuggingFace (all-MiniLM-L6-v2) y responde con Llama 3 servido por Groq a través de LangChain. Interfaz de chat con Chainlit, búsqueda semántica sin necesidad de palabras clave exactas, y cada respuesta incluye las fuentes originales para verificación. Containerizado con Docker para despliegue reproducible.",
+        stack:["LangChain","Llama 3","Groq","ChromaDB","HuggingFace","Chainlit","Docker","Python"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/Chatbot"}
+        ]
+      },
+      {
+        tag:"05 — DATA",
+        title:"Valencia Airbnb Insights",
+        year:"2024",
+        role:"Data analytics",
+        sub:"Análisis estratégico de rentabilidad del mercado de alquiler turístico en Valencia.",
+        body:"Limpieza y transformación de datos brutos de Inside Airbnb con Pandas: eliminación de nulos y filtrado de outliers de precio (>300€). Visualización interactiva con Plotly incluyendo mapa coroplético por barrios. Análisis de rentabilidad por distrito, tipología de alojamiento y demanda real medida por reseñas. Conclusión clave: los pisos completos para más de 4 huéspedes en Poblats Marítims y Ciutat Vella lideran el rendimiento; barrios periféricos norte ofrecen menor riesgo de entrada.",
+        stack:["Python","Pandas","Plotly","Seaborn","Jupyter","NumPy"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/Analisis_Airbnb_Valencia"}
+        ]
+      },
+      {
+        tag:"06 — MOBILE",
+        title:"GymTracker",
+        year:"2024",
+        role:"App Android nativa · TFG",
+        sub:"Proyecto de fin de grado DAM — app completa de seguimiento deportivo. Defendido con éxito.",
+        body:"Aplicación Android nativa en Java y Android Studio. Backend completo en Firebase (Authentication, Firestore, Storage) con integración de OpenStreetMap y la API Overpass para la búsqueda geográfica de gimnasios en tiempo real. Incluye gestión de rutinas personalizadas con catálogo de ejercicios por grupos musculares, seguimiento histórico de IMC con notificaciones semanales, buscador de gimnasios cercanos y comparador de suplementación deportiva. Ciclo de pruebas completo: caja negra, caja blanca y pruebas de usuario.",
+        stack:["Java","Android Studio","Firebase","OpenStreetMap","Overpass API"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/GymTracker"}
+        ]
       }
     ],
     eduItems: [
       { year:"2024 — 2026", title:"Especialización en IA y Big Data", place:"IES Eduardo Primo Marqués" },
-      { year:"2022 — 2024", title:"Grado Superior en Desarrollo de Aplicaciones Multiplataforma", place:"IES Eduardo Primo Marqués" },
-      { year:"2020 — 2022", title:"Grado Medio en Instalaciones de Telecomunicaciones", place:"IES El Cabanyal" }
+      { year:"2022 — 2024", title:"Técnico Superior en Desarrollo de Aplicaciones Multiplataforma", place:"IES Eduardo Primo Marqués" }
     ],
-    footerLeft: "Diseñado y programado por Igor Ostyak.",
-    footerRight: "v2026.04"
+    footerLeft: "Diseñado y desarrollado por Igor Ostyak.",
+    footerRight: "v2026.05"
   },
   en: {
     nav: { work: "Work", about: "About", stack: "Stack", education: "Education", contact: "Contact" },
-    statusOpen: "Open to work · Valencia or remote",
+    statusOpen: "Open to work · Valencia / Remote",
     role: "AI & Big Data Engineer",
     heroLine1: "I build",
     heroLine2: "intelligence",
-    heroLine3: "systems that ship.",
-    heroSub: "Specialised in RAG, machine learning and solutions on AWS. From proof of concept to a deployed, working product.",
+    heroLine3: "systems that think in production.",
+    heroSub: "Specialised in RAG, data pipelines and cloud architectures on AWS. From proof-of-concept to code that handles real traffic.",
     scroll: "Scroll",
     sec01: "Selected work",
-    sec01sub: "Five projects, from vision models to LLM assistants on AWS.",
+    sec01sub: "Six projects, from vision models to full-stack automation platforms.",
     sec02: "About",
     sec02sub: "Profile",
-    about1: "Multi-platform Application Development technician, specialised in AI and Big Data. I work at the intersection of models, data and product: design the architecture, write the code, and make sure what I ship actually works.",
-    about2: "I come from software development — Java, web, databases — so I don't just train models: I can build the whole product around them. Today I apply it to AI and data projects: RAG on AWS Bedrock, computer vision with TensorFlow and data analysis in Python. I care about understanding the why, not just that it works.",
-    about3: "I'm eager to learn, improve and grow — and I'm looking for my first full-time role as an AI or Data Engineer, where I can contribute what I know and keep discovering.",
+    about1: "I trained as a software developer and now build AI systems that go beyond the prototype: pipelines that process real data, RAG agents with persistent memory, and full-stack automation platforms. My projects range from a brain-tumour classifier to a public-tender portal with integrated LLM analysis.",
+    about2: "I care about the details that don't show: query latency, response traceability, graceful failure. I work with AWS Bedrock, LangChain, n8n and Python — but the tool is secondary. What I'm after is something that works in production.",
+    about3: "Looking for a team where data and models have real impact. Valencia or remote.",
     sec03: "Tech stack",
-    sec03sub: "Daily tools",
+    sec03sub: "Tools I use daily",
     sec04: "Education",
     sec04sub: "Degrees & certifications",
     sec05: "Let's talk",
     sec05sub: "Open to opportunities",
-    contactIntro: "If you have an AI challenge, a pipeline that hurts, or you're building a team — write me. I reply in under 24h.",
+    contactIntro: "If you have an AI challenge, a painful pipeline, or you're building a team — reach out. I reply within 24h.",
     contactCTA: "Send an email",
     localTime: "Local time",
     basedIn: "Valencia, Spain",
     role2: "AI / Data Engineer",
     status: "Looking for a role",
     langToggle: "ES",
-    cta: "See projects",
+    cta: "View projects",
     lookAt: "View",
     year: "YEAR",
     role_label: "ROLE",
     stack_label: "STACK",
     details: "Details",
-    viewRepo: "View repository",
+    github_link: "GitHub ↗",
+    demo_link: "Live demo ↗",
     roles: {
       flagship: "Flagship project",
       ml: "Computer vision",
-      mobile: "Native mobile",
-      data: "Data analysis",
+      mobile: "Native mobile app",
+      data: "Data analytics",
       llm: "LLM / RAG"
     },
     projects: [
       {
         tag:"01 — FLAGSHIP",
+        title:"ConstruTECH-IA",
+        year:"2026",
+        role:"Full Stack · AI Automation",
+        sub:"End-to-end platform for managing public construction tenders in Valencia, with n8n automation pipeline and integrated AI analysis.",
+        body:"Complete solution for construction companies: a Python scraper downloads and filters tenders from Spain's PCSP platform (public works ≤5M€, Valencia) from XML ZIPs and ingests them into PostgreSQL. n8n orchestrates 5 automated workflows — PDF analysis with Ollama/Groq LLM, email/Teams/Telegram alerts, SharePoint sync and document change surveillance. The web portal (FastAPI + React + Tailwind) lets users review AI-enriched tenders, record decisions (Submitted / Under study / Not submitted), add internal notes and manage on-site visits. Full Docker Compose infrastructure with headless Browserless Chrome, JWT authentication and audit logging.",
+        stack:["FastAPI","React","PostgreSQL","n8n","Ollama / Groq","Docker","Python","Tailwind CSS","JWT","Browserless"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/IES-Eduardo-Primo-Marques/ConstruTECH-IA"}
+        ]
+      },
+      {
+        tag:"02 — CLOUD · RAG",
         title:"F1 Engineering Assistant",
         year:"2025",
         role:"AI / RAG architecture",
-        sub:"RAG assistant over the official FIA regulations, with AWS Bedrock Agents and Chainlit.",
-        body:"Formula 1 engineering assistant that uses RAG over an AWS (S3) knowledge base to query the official FIA Technical, Sporting and Financial regulations. Two adaptive profiles — Pro mode (technical answers with citations to specific articles) and Basic mode (didactic explanations). Persistent memory via SQLite in WAL mode, interactive citations to source PDFs, and voice synthesis with Amazon Polly. Built with Chainlit and Python.",
-        stack:["AWS Bedrock","Chainlit","RAG","SQLite WAL","Amazon Polly"]
+        sub:"Engineering assistant with persistent memory, voice synthesis and adaptive profiles, built on AWS Bedrock Agents.",
+        body:"Formula 1 engineering assistant built on a RAG architecture with AWS Bedrock Agents. Features two modes: Pro mode with technical answers and FIA regulation article citations, and Basic mode with didactic explanations for fans. Persistent memory via SQLite in WAL mode for concurrency, voice synthesis with Amazon Polly, and tool orchestration to query telemetry, technical, sporting and financial regulations. Tuned for low latency and response traceability.",
+        stack:["AWS Bedrock","RAG","SQLite WAL","Amazon Polly","Chainlit","Python"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/F1-Engineering-Assistant"}
+        ]
       },
       {
-        tag:"02 — VISION",
-        title:"Brain Tumor Classifier",
-        year:"2024",
-        role:"Computer vision",
-        sub:"MRI brain-tumor classifier — 93.19% accuracy.",
-        body:"Comparison of several convolutional neural network (CNN) architectures trained in TensorFlow/Keras to classify brain tumors into four classes (glioma, meningioma, pituitary and no tumor) from MRI images. The best model reached 93.19% accuracy and was deployed as an interactive Streamlit web app where you upload an image and get an AI-assisted diagnosis.",
-        stack:["TensorFlow","Keras","CNN","Streamlit","Python"]
-      },
-      {
-        tag:"03 — MOBILE",
-        title:"GymTracker",
-        year:"2024",
-        role:"Native Android · Final project",
-        sub:"DAM degree final project — native fitness-tracking app, successfully defended.",
-        body:"Native Android app (Java + Android Studio) and the final project of my Multi-platform Development degree. Firebase backend (Auth, Firestore NoSQL and Storage) and real-time geolocation with OpenStreetMap (osmdroid + Overpass API). Features custom routines, an exercise catalog by muscle group with videos, BMI analysis and history, weekly notifications, a map-based gym finder and a supplement comparator. Passed a full cycle of black-box/white-box and user testing.",
-        stack:["Java","Android Studio","Firebase","OpenStreetMap"]
-      },
-      {
-        tag:"04 — DATA",
-        title:"Valencia Airbnb Insights",
+        tag:"03 — VISION",
+        title:"NeuroScan AI",
         year:"2025",
-        role:"Data analysis",
-        sub:"Analysis of Valencia's short-term rental market with real Inside Airbnb data.",
-        body:"Cleaned and transformed Inside Airbnb data with Pandas and NumPy (outlier and null filtering), analysed prices by neighborhood and district, and cross-referenced reviews to gauge real demand. Visualised with Seaborn and an interactive Plotly map, presented as navigable slides. Actionable conclusions on where to invest and which property type performs best.",
-        stack:["Python","Pandas","NumPy","Plotly","Seaborn","Jupyter"]
+        role:"Computer vision",
+        sub:"Brain-tumor classifier with CNN — 93.19% accuracy. Live web app on Streamlit.",
+        body:"Convolutional neural network trained in TensorFlow/Keras for multi-class brain-tumor classification on MRI scans (glioma, meningioma, no tumor, pituitary). Full pipeline: preprocessing, augmentation, early stopping and export of an inference-ready model. The CNN_4B architecture reached 93.19% accuracy, surpassing the 78% target. Includes an interactive web app deployed on Streamlit Community Cloud.",
+        stack:["TensorFlow","Keras","CNN","Streamlit","Python","NumPy"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/MRI-Brain-Tumor-Classifier"},
+          {label:"Live demo ↗", href:"https://clasificador-tumores-mri.streamlit.app/"}
+        ]
       },
       {
-        tag:"05 — LLM",
+        tag:"04 — LLM",
         title:"RAG Chatbot",
         year:"2025",
         role:"LLM / RAG",
-        sub:"Q&A over your own PDFs with LangChain, Llama 3 (Groq) and ChromaDB.",
-        body:"RAG question-answering chatbot: the user uploads their PDFs and asks about the content. Built with LangChain as the framework, Llama 3 served by Groq for inference, ChromaDB as the vector store and local Hugging Face embeddings for semantic search. Every answer includes cited sources, and if the information isn't found it says so honestly. Chainlit interface. Built as a pair project.",
-        stack:["LangChain","Llama 3 · Groq","ChromaDB","Chainlit","Python"]
+        sub:"Dynamic PDF Q&A with LangChain, Llama 3 (Groq), ChromaDB and local embeddings.",
+        body:"Question-answering chatbot that indexes PDF documents in a ChromaDB vector store using local HuggingFace embeddings (all-MiniLM-L6-v2) and answers with Llama 3 served by Groq through LangChain. Chat interface built with Chainlit, semantic search without exact keyword matching, and every response includes the original source chunks for verification. Containerised with Docker for reproducible deployment.",
+        stack:["LangChain","Llama 3","Groq","ChromaDB","HuggingFace","Chainlit","Docker","Python"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/Chatbot"}
+        ]
+      },
+      {
+        tag:"05 — DATA",
+        title:"Valencia Airbnb Insights",
+        year:"2024",
+        role:"Data analytics",
+        sub:"Strategic profitability analysis of Valencia's short-term rental market.",
+        body:"Cleaned and transformed raw Inside Airbnb data with Pandas: null removal and price outlier filtering (>€300). Interactive visualisation with Plotly including a choropleth map by neighbourhood. Profitability analysis by district, accommodation type and real demand measured by recent reviews. Key finding: full apartments for 4+ guests in Poblats Marítims and Ciutat Vella lead on yield; northern peripheral neighbourhoods offer lower entry risk.",
+        stack:["Python","Pandas","Plotly","Seaborn","Jupyter","NumPy"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/Analisis_Airbnb_Valencia"}
+        ]
+      },
+      {
+        tag:"06 — MOBILE",
+        title:"GymTracker",
+        year:"2024",
+        role:"Native Android · Final project",
+        sub:"Multi-platform Development final project — full fitness tracking app. Successfully defended.",
+        body:"Native Android app in Java and Android Studio. Full Firebase backend (Authentication, Firestore, Storage) with OpenStreetMap and Overpass API integration for real-time geographic gym search. Features personalised routine management with an exercise catalogue by muscle group, historical BMI tracking with weekly notifications, a nearby-gyms finder and a supplement comparison tool. Full test cycle: black-box, white-box and user acceptance testing.",
+        stack:["Java","Android Studio","Firebase","OpenStreetMap","Overpass API"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/GymTracker"}
+        ]
       }
     ],
     eduItems: [
       { year:"2024 — 2026", title:"Specialisation in AI & Big Data", place:"IES Eduardo Primo Marqués" },
-      { year:"2022 — 2024", title:"Higher Degree in Multi-platform Application Development", place:"IES Eduardo Primo Marqués" },
-      { year:"2020 — 2022", title:"Vocational Degree in Telecommunications Installations", place:"IES El Cabanyal" }
+      { year:"2022 — 2024", title:"Higher Degree in Multi-platform Application Development", place:"IES Eduardo Primo Marqués" }
     ],
     footerLeft: "Designed & coded by Igor Ostyak.",
-    footerRight: "v2026.04"
+    footerRight: "v2026.05"
   }
 };
 
@@ -527,7 +572,6 @@ function SectionHead({num, title, subtitle}){
 
 /* project visual — abstract placeholder per project */
 function ProjectVisual({kind}){
-  // kind: 'rag','cnn','mobile','data','llm'
   if(kind==='rag'){
     return (
       <svg viewBox="0 0 340 220" className="w-full h-full">
@@ -545,7 +589,7 @@ function ProjectVisual({kind}){
             return <circle key={i} cx={x} cy={y} r="2"/>;
           })}
         </g>
-        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">RAG · BEDROCK · FIA</text>
+        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">RAG · BEDROCK · AGENTS</text>
       </svg>
     );
   }
@@ -559,7 +603,7 @@ function ProjectVisual({kind}){
         {[0,1,2,3].map(i=>(
           <text key={i} x={55+i*70} y={180} fill="#8a8781" fontFamily="monospace" fontSize="8" textAnchor="middle">L{i+1}</text>
         ))}
-        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">CNN · TENSORFLOW · MRI</text>
+        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">CNN · 93.19% ACC</text>
       </svg>
     );
   }
@@ -589,26 +633,49 @@ function ProjectVisual({kind}){
     );
   }
   // llm
+  if(kind==='llm'){
+    return (
+      <svg viewBox="0 0 340 220" className="w-full h-full">
+        <rect width="340" height="220" fill="#0d0d0f"/>
+        {[...Array(18)].map((_,i)=>(
+          <g key={i}>
+            <rect x={20+i*17} y={60} width="10" height={60+Math.sin(i*.8)*40} fill="oklch(0.78 0.18 142)" opacity={.15+i*.03}/>
+          </g>
+        ))}
+        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">LLM · EMBEDDINGS · CHROMA</text>
+      </svg>
+    );
+  }
+  // automation / fullstack
   return (
     <svg viewBox="0 0 340 220" className="w-full h-full">
       <rect width="340" height="220" fill="#0d0d0f"/>
-      {[...Array(18)].map((_,i)=>(
+      {/* pipeline nodes */}
+      {[
+        {x:20, y:95, label:"PCSP"},
+        {x:90, y:95, label:"PY"},
+        {x:160, y:95, label:"PG"},
+        {x:230, y:95, label:"n8n"},
+        {x:300, y:95, label:"UI"}
+      ].map((n,i)=>(
         <g key={i}>
-          <rect x={20+i*17} y={60} width="10" height={60+Math.sin(i*.8)*40} fill="oklch(0.78 0.18 142)" opacity={.15+Math.random()*.5}/>
+          <rect x={n.x} y={n.y-14} width="38" height="28" rx="4" fill="none" stroke="oklch(0.78 0.18 142)" strokeWidth="0.8"/>
+          <text x={n.x+19} y={n.y+4} fill="#eeeae2" fontFamily="monospace" fontSize="8" textAnchor="middle">{n.label}</text>
+          {i<4 && <line x1={n.x+38} y1={n.y} x2={n.x+52} y2={n.y} stroke="oklch(0.78 0.18 142)" strokeWidth="0.7" strokeDasharray="2,2"/>}
         </g>
       ))}
-      <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">LLM · EMBEDDINGS · CHROMA</text>
+      {/* branches from n8n */}
+      {[{label:"LLM",dy:-38},{label:"MAIL",dy:0},{label:"SHARE",dy:38}].map((b,i)=>(
+        <g key={i}>
+          <line x1="268" y1="95" x2="268" y2={95+b.dy} stroke="#3a3935" strokeWidth="0.6"/>
+          <text x="272" y={99+b.dy} fill="#8a8781" fontFamily="monospace" fontSize="7">{b.label}</text>
+        </g>
+      ))}
+      <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">FASTAPI · n8n · REACT · POSTGRES</text>
     </svg>
   );
 }
-const KINDS = ['rag','cnn','mobile','data','llm'];
-const REPOS = {
-  "01 — FLAGSHIP": "https://github.com/igoor17/F1-Engineering-Assistant",
-  "02 — VISION":   "https://github.com/igoor17/MRI-Brain-Tumor-Classifier",
-  "03 — MOBILE":   "https://github.com/igoor17/GymTracker",
-  "04 — DATA":     "https://github.com/igoor17/Analisis_Airbnb_Valencia",
-  "05 — LLM":      "https://github.com/igoor17/Chatbot-RAG",
-};
+const KINDS = ['auto','rag','cnn','llm','data','mobile'];
 
 function Projects({t}){
   const [active,setActive]=useState(null);
@@ -651,12 +718,15 @@ function Projects({t}){
                       <span key={s} className="mono text-[10.5px] uppercase tracking-[0.14em] border border-line px-2.5 py-1 ink-dim">{s}</span>
                     ))}
                   </div>
-                  {REPOS[p.tag] && (
-                    <a href={REPOS[p.tag]} target="_blank" rel="noopener" className="group/r mt-7 inline-flex items-center gap-3 border border-line px-4 py-2.5 hover:border-[color:var(--ink)] hover:bg-ink hover:text-bg transition">
-                      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                      <span className="mono text-[11px] uppercase tracking-[0.18em]">{t.viewRepo}</span>
-                      <span className="mono text-[12px] opacity-60 group-hover/r:opacity-100 transition">↗</span>
-                    </a>
+                  {p.links && p.links.length > 0 && (
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      {p.links.map(l=>(
+                        <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer"
+                          className="mono text-[11px] uppercase tracking-[0.18em] border border-[color:var(--ink-dim)] px-3 py-1.5 ink-dim hover:border-[color:var(--ink)] hover:text-[color:var(--ink)] transition inline-flex items-center gap-1.5">
+                          {l.label}
+                        </a>
+                      ))}
+                    </div>
                   )}
                 </div>
                 <div className="col-span-12 md:col-span-3 md:col-start-10">
@@ -687,16 +757,15 @@ function About({t}){
         <SectionHead num="02" title={t.sec02} subtitle={t.sec02sub}/>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 md:col-span-3">
-            <div className="portrait aspect-[3/4] border border-line relative overflow-hidden group">
-              <img src="images/perfil.jpeg" alt="Igor Ostyak" className="portrait-img absolute inset-0 w-full h-full object-cover object-center"/>
-              <div className="absolute inset-0 pointer-events-none" style={{background:"linear-gradient(to top, rgba(10,10,11,0.55) 0%, transparent 38%)"}}></div>
-              <div className="absolute inset-0 flex items-end p-4 pointer-events-none">
-                <div className="mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--ink)]">
-                  <div>IGOR OSTYAK</div>
-                  <div className="ink-dim">{t.role2}</div>
+            <div className="aspect-[3/4] ph-stripes border border-line relative overflow-hidden">
+              <div className="absolute inset-0 flex items-end p-4">
+                <div className="mono text-[10px] uppercase tracking-[0.2em] ink-faint">
+                  <div>PORTRAIT.JPG</div>
+                  <div>1200×1600</div>
                 </div>
               </div>
-              <div className="absolute top-4 right-4 mono text-[10px] uppercase tracking-[0.2em] accent flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-accent blink"></span> OPEN</div>
+              <div className="absolute top-4 right-4 mono text-[10px] uppercase tracking-[0.2em] accent">● LIVE</div>
+              <div className="absolute inset-0 dotgrid opacity-30"></div>
             </div>
             <div className="mt-4 mono text-[11px] uppercase tracking-[0.18em] ink-dim space-y-1">
               <div className="flex justify-between"><span className="ink-faint">Based</span><span>{t.basedIn}</span></div>
@@ -717,10 +786,10 @@ function About({t}){
 
 function Stack({t}){
   const groups = [
-    { label:"IA & Machine Learning", items:["TensorFlow","Keras","CNN","RAG","LangChain","AWS Bedrock","Groq · Llama 3","ChromaDB"] },
-    { label:"Datos & Big Data", items:["Python","Pandas","NumPy","Plotly","Apache Spark","Hadoop","Power BI","Jupyter"] },
-    { label:"Desarrollo & BBDD", items:["Java","Android","PHP","JavaScript","Node.js","SQL","MySQL","MongoDB","Firebase"] },
-    { label:"Cloud, DevOps & Automatización", items:["AWS","Microsoft Azure","Azure AI Foundry","Docker","n8n","Chainlit","Streamlit","Git"] }
+    { label:"AI / ML", items:["RAG","AWS Bedrock","LangChain","TensorFlow","Keras","CNN","Llama 3","Groq","ChromaDB","HuggingFace","Chainlit"] },
+    { label:"Data", items:["Python","Pandas","Plotly","Seaborn","NumPy","SQL","SQLite WAL","Jupyter","Streamlit"] },
+    { label:"Cloud & Infra", items:["AWS","Bedrock Agents","Amazon Polly","Firebase","Docker","n8n","Browserless"] },
+    { label:"Dev", items:["Java","Android Studio","OpenStreetMap","Git","GitHub"] }
   ];
   return (
     <section id="stack" className="px-6 md:px-10 py-24 md:py-32 border-t border-line">
@@ -819,14 +888,19 @@ function Footer({t}){
 
 /* ---------- App ---------- */
 function App(){
-  const [lang,setLang] = useState(()=> localStorage.getItem('io_lang') || 'es');
-  useEffect(()=>{ localStorage.setItem('io_lang', lang); document.documentElement.lang = lang; },[lang]);
+  const [lang,setLang] = useState(()=>{
+    try { return localStorage.getItem('io_lang') || 'es'; } catch(e){ return 'es'; }
+  });
+  useEffect(()=>{
+    try { localStorage.setItem('io_lang', lang); } catch(e){}
+    document.documentElement.lang = lang;
+  },[lang]);
   const t = DICT[lang];
   useReveal();
   useCursor();
 
   const marqueeItems = useMemo(()=>[
-    "RAG", "AWS BEDROCK", "TENSORFLOW", "LANGCHAIN", "PANDAS", "SQLITE WAL", "LLAMA 3", "CHROMADB", "PYTHON", "ANDROID / JAVA", "FIREBASE", "AMAZON POLLY"
+    "RAG", "AWS BEDROCK", "TENSORFLOW", "LANGCHAIN", "PANDAS", "SQLITE WAL", "LLAMA 3", "CHROMADB", "PYTHON", "ANDROID / JAVA", "FIREBASE", "AMAZON POLLY", "CHAINLIT", "STREAMLIT", "DOCKER", "HUGGINGFACE", "n8n", "FASTAPI", "REACT", "POSTGRESQL"
   ],[]);
 
   return (
@@ -848,3 +922,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
+                                                                  
