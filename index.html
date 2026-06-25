@@ -140,7 +140,7 @@ const DICT = {
     heroLine1: "Construyo sistemas de",
     heroLine2: "inteligencia",
     heroLine3: "que piensan en producción.",
-    heroSub: "Especializado en RAG, pipelines de datos y arquitecturas cloud sobre AWS. De la prueba de concepto al código que aguanta tráfico real.",
+    heroSub: "Especializado en sistemas RAG, automatización con IA y pipelines de datos. Del prototipo al código que funciona en producción.",
     scroll: "Desplaza",
     sec01: "Trabajo seleccionado",
     sec01sub: "Seis proyectos, de modelos de visión a plataformas de automatización full-stack.",
@@ -757,15 +757,9 @@ function About({t}){
         <SectionHead num="02" title={t.sec02} subtitle={t.sec02sub}/>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 md:col-span-3">
-            <div className="aspect-[3/4] ph-stripes border border-line relative overflow-hidden">
-              <div className="absolute inset-0 flex items-end p-4">
-                <div className="mono text-[10px] uppercase tracking-[0.2em] ink-faint">
-                  <div>PORTRAIT.JPG</div>
-                  <div>1200×1600</div>
-                </div>
-              </div>
+            <div className="aspect-[3/4] border border-line relative overflow-hidden">
+              <img src="images/perfil.jpeg" alt="Igor Ostyak" className="absolute inset-0 w-full h-full object-cover"/>
               <div className="absolute top-4 right-4 mono text-[10px] uppercase tracking-[0.2em] accent">● LIVE</div>
-              <div className="absolute inset-0 dotgrid opacity-30"></div>
             </div>
             <div className="mt-4 mono text-[11px] uppercase tracking-[0.18em] ink-dim space-y-1">
               <div className="flex justify-between"><span className="ink-faint">Based</span><span>{t.basedIn}</span></div>
