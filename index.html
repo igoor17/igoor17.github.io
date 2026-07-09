@@ -779,28 +779,122 @@ function About({t}){
 }
 
 function Stack({t}){
+  const [hov, setHov] = useState(null);
+
   const groups = [
-    { label:"AI / ML", items:["RAG","AWS Bedrock","LangChain","TensorFlow","Keras","CNN","Llama 3","Groq","ChromaDB","HuggingFace","Chainlit"] },
-    { label:"Data", items:["Python","Pandas","Plotly","Seaborn","NumPy","SQL","SQLite WAL","Jupyter","Streamlit"] },
-    { label:"Cloud & Infra", items:["AWS","Bedrock Agents","Amazon Polly","Firebase","Docker","n8n","Browserless"] },
-    { label:"Dev", items:["Java","Android Studio","OpenStreetMap","Git","GitHub"] }
+    { label:"AI / ML", items:[
+      {name:"Python",      icon:"python"},
+      {name:"LangChain",   icon:"langchain"},
+      {name:"TensorFlow",  icon:"tensorflow"},
+      {name:"Keras",       icon:"keras"},
+      {name:"HuggingFace", icon:"huggingface"},
+      {name:"Llama 3",     icon:"meta"},
+      {name:"Ollama",      icon:"ollama"},
+      {name:"LangGraph",   icon:"langgraph"},
+      {name:"OpenCV",      icon:"opencv"},
+      {name:"scikit-learn",icon:"scikitlearn"},
+    ]},
+    { label:"Data", items:[
+      {name:"Pandas",        icon:"pandas"},
+      {name:"NumPy",         icon:"numpy"},
+      {name:"Plotly",        icon:"plotly"},
+      {name:"Jupyter",       icon:"jupyter"},
+      {name:"Streamlit",     icon:"streamlit"},
+      {name:"SQL",           icon:"postgresql"},
+      {name:"SQLite",        icon:"sqlite"},
+      {name:"Apache Spark",  icon:"apachespark"},
+    ]},
+    { label:"Cloud & Infra", items:[
+      {name:"AWS",      icon:"https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg"},
+      {name:"Docker",   icon:"docker"},
+      {name:"n8n",      icon:"n8n"},
+      {name:"Firebase", icon:"firebase"},
+      {name:"Git",      icon:"git"},
+      {name:"GitHub",   icon:"github"},
+    ]},
+    { label:"Dev", items:[
+      {name:"FastAPI",        icon:"fastapi"},
+      {name:"React",          icon:"react"},
+      {name:"PostgreSQL",     icon:"postgresql"},
+      {name:"Tailwind CSS",   icon:"tailwindcss"},
+      {name:"Vite",           icon:"vite"},
+      {name:"Java",           icon:"https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg"},
+      {name:"Android Studio", icon:"androidstudio"},
+    ]},
   ];
+
   return (
     <section id="stack" className="px-6 md:px-10 py-24 md:py-32 border-t border-line">
       <div className="max-w-[1440px] mx-auto">
         <SectionHead num="03" title={t.sec03} subtitle={t.sec03sub}/>
-        <div className="grid grid-cols-12 gap-6 md:gap-10">
-          {groups.map((g,i)=>(
-            <div key={g.label} className="col-span-12 md:col-span-6 border-t border-line pt-5">
-              <div className="mono text-[11px] uppercase tracking-[0.2em] ink-faint mb-5">0{i+1} / {g.label}</div>
-              <ul className="divide-y divide-[color:var(--line)]">
-                {g.items.map(it=>(
-                  <li key={it} className="flex items-baseline justify-between gap-4 py-2">
-                    <span className="serif text-[22px] md:text-[28px] leading-[1.15]">{it}</span>
-                    <span className="mono text-[10px] ink-faint shrink-0">●</span>
-                  </li>
-                ))}
-              </ul>
+        <div className="space-y-12">
+          {groups.map((g,gi)=>(
+            <div key={g.label}>
+              <div className="mono text-[11px] uppercase tracking-[0.2em] ink-faint mb-4 border-t border-line pt-5">
+                0{gi+1} / {g.label}
+              </div>
+              <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(92px, 1fr))', gap:'6px'}}>
+                {g.items.map((it,ii)=>{
+                  const key = `${gi}-${ii}`;
+                  const isHov = hov === key;
+                  return (
+                    <div
+                      key={it.name}
+                      onMouseEnter={()=>setHov(key)}
+                      onMouseLeave={()=>setHov(null)}
+                      style={{
+                        border:`1px solid ${isHov ? 'oklch(0.78 0.18 142)' : 'var(--line)'}`,
+                        background: isHov ? 'rgba(150,255,180,0.04)' : 'transparent',
+                        boxShadow: isHov ? '0 0 20px rgba(150,255,180,0.08), inset 0 0 12px rgba(150,255,180,0.03)' : 'none',
+                        transition:'border-color .22s ease, background .22s ease, box-shadow .22s ease',
+                        padding:'16px 10px 14px',
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'center',
+                        gap:'9px',
+                        cursor:'default',
+                      }}
+                    >
+                      {it.icon ? (
+                        <img
+                          src={it.icon.startsWith('http') ? it.icon : `https://cdn.simpleicons.org/${it.icon}/eeeae2`}
+                          alt={it.name}
+                          width="26" height="26"
+                          style={{
+                            opacity: isHov ? 1 : 0.45,
+                            filter: it.icon.startsWith('http')
+                              ? (isHov ? 'brightness(0) invert(1) drop-shadow(0 0 6px oklch(0.78 0.18 142 / 0.55))' : 'brightness(0) invert(1)')
+                              : (isHov ? 'drop-shadow(0 0 6px oklch(0.78 0.18 142 / 0.55))' : 'none'),
+                            transition:'opacity .22s ease, filter .22s ease',
+                          }}
+                          onError={e=>{ e.target.style.display='none'; }}
+                        />
+                      ) : (
+                        <span style={{
+                          width:'26px', height:'26px',
+                          display:'flex', alignItems:'center', justifyContent:'center',
+                          fontFamily:'JetBrains Mono, monospace',
+                          fontSize:'9px', letterSpacing:'0.08em',
+                          color: isHov ? 'oklch(0.78 0.18 142)' : 'var(--ink-faint)',
+                          transition:'color .22s ease',
+                        }}>
+                          {it.name.slice(0,3).toUpperCase()}
+                        </span>
+                      )}
+                      <span style={{
+                        fontFamily:'JetBrains Mono, monospace',
+                        fontSize:'9px',
+                        textTransform:'uppercase',
+                        letterSpacing:'0.1em',
+                        textAlign:'center',
+                        lineHeight:1.35,
+                        color: isHov ? 'var(--ink)' : 'var(--ink-dim)',
+                        transition:'color .22s ease',
+                      }}>{it.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </div>
