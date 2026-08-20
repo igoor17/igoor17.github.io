@@ -143,7 +143,7 @@ const DICT = {
     heroSub: "Especializado en sistemas RAG, automatización con IA y pipelines de datos. Del prototipo al código que funciona en producción.",
     scroll: "Desplaza",
     sec01: "Trabajo seleccionado",
-    sec01sub: "Seis proyectos, de modelos de visión a plataformas de automatización full-stack.",
+    sec01sub: "Siete proyectos, de modelos de visión a plataformas de automatización full-stack.",
     sec02: "Sobre",
     sec02sub: "Perfil",
     about1: "Me formé en desarrollo de software y ahora construyo sistemas de IA que van más allá del prototipo: pipelines que procesan datos reales, agentes RAG con memoria persistente y plataformas de automatización full-stack. Mis proyectos van del clasificador de tumores cerebrales al portal de licitaciones con análisis LLM integrado.",
@@ -192,7 +192,19 @@ const DICT = {
         ]
       },
       {
-        tag:"02 — CLOUD · RAG",
+        tag:"02 — AUTOMATIZACIÓN · IA",
+        title:"Mail Digest",
+        year:"2026",
+        role:"Proyecto personal · Automatización con IA",
+        sub:"Automatización en producción que clasifica el correo con GPT-4o-mini cada 5 horas y envía un único digest por email y Telegram.",
+        body:"Workflow de 14 nodos en n8n autoalojado con Docker. Recoge hasta 100 correos de Gmail incluyendo spam y papelera —porque los filtros se equivocan— y los procesa en dos fases con GPT-4o-mini: primero una clasificación determinista (temperatura 0.1, salida JSON) que decide qué es importante y en qué categoría encaja, y después una generación que redacta los resúmenes y compone el HTML. Un nodo Code inyecta la plantilla completa con estilos inline dentro del prompt, de forma que el diseño no varía entre ejecuciones. Un nodo IF corta la ejecución si no hay nada relevante, evitando digests vacíos. Salida dual a Gmail y Telegram, workflow de error independiente con alertas, y reintentos automáticos en los nodos de LLM para absorber errores 500 transitorios de la API.",
+        stack:["n8n","OpenAI GPT-4o-mini","Gmail API","JavaScript","Telegram Bot API","Docker","HTML"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/email-digest"}
+        ]
+      },
+      {
+        tag:"03 — CLOUD · RAG",
         title:"F1 Engineering Assistant",
         year:"2026",
         role:"AI / Arquitectura RAG",
@@ -204,7 +216,7 @@ const DICT = {
         ]
       },
       {
-        tag:"03 — VISION",
+        tag:"04 — VISION",
         title:"NeuroScan AI",
         year:"2026",
         role:"Visión por computador",
@@ -217,7 +229,7 @@ const DICT = {
         ]
       },
       {
-        tag:"04 — LLM",
+        tag:"05 — LLM",
         title:"Chatbot RAG",
         year:"2025",
         role:"LLM / RAG",
@@ -229,7 +241,7 @@ const DICT = {
         ]
       },
       {
-        tag:"05 — DATA",
+        tag:"06 — DATA",
         title:"Valencia Airbnb Insights",
         year:"2025",
         role:"Data analytics",
@@ -241,7 +253,7 @@ const DICT = {
         ]
       },
       {
-        tag:"06 — MOBILE",
+        tag:"07 — MOBILE",
         title:"GymTracker",
         year:"2024",
         role:"App Android nativa · TFG",
@@ -270,7 +282,7 @@ const DICT = {
     heroSub: "Specialised in RAG, data pipelines and cloud architectures on AWS. From proof-of-concept to code that handles real traffic.",
     scroll: "Scroll",
     sec01: "Selected work",
-    sec01sub: "Six projects, from vision models to full-stack automation platforms.",
+    sec01sub: "Seven projects, from vision models to full-stack automation platforms.",
     sec02: "About",
     sec02sub: "Profile",
     about1: "I trained as a software developer and now build AI systems that go beyond the prototype: pipelines that process real data, RAG agents with persistent memory, and full-stack automation platforms. My projects range from a brain-tumour classifier to a public-tender portal with integrated LLM analysis.",
@@ -319,7 +331,19 @@ const DICT = {
         ]
       },
       {
-        tag:"02 — CLOUD · RAG",
+        tag:"02 — AUTOMATION · AI",
+        title:"Mail Digest",
+        year:"2026",
+        role:"Personal project · AI automation",
+        sub:"Production automation that classifies incoming mail with GPT-4o-mini every five hours and delivers a single digest by email and Telegram.",
+        body:"A 14-node workflow on self-hosted n8n with Docker. Pulls up to 100 Gmail messages including spam and trash — because filters get it wrong — and processes them in two GPT-4o-mini stages: a deterministic classification pass (temperature 0.1, JSON mode) deciding what matters and which category it belongs to, then a generation pass that writes the summaries and composes the HTML. A Code node injects the full inline-styled template into the prompt so the layout never drifts between runs. An IF node short-circuits execution when nothing is relevant, avoiding empty digests. Dual output to Gmail and Telegram, a separate error workflow with alerts, and automatic retries on the LLM nodes to absorb transient 500s from the API.",
+        stack:["n8n","OpenAI GPT-4o-mini","Gmail API","JavaScript","Telegram Bot API","Docker","HTML"],
+        links:[
+          {label:"GitHub ↗", href:"https://github.com/igoor17/email-digest"}
+        ]
+      },
+      {
+        tag:"03 — CLOUD · RAG",
         title:"F1 Engineering Assistant",
         year:"2026",
         role:"AI / RAG architecture",
@@ -331,7 +355,7 @@ const DICT = {
         ]
       },
       {
-        tag:"03 — VISION",
+        tag:"04 — VISION",
         title:"NeuroScan AI",
         year:"2026",
         role:"Computer vision",
@@ -344,7 +368,7 @@ const DICT = {
         ]
       },
       {
-        tag:"04 — LLM",
+        tag:"05 — LLM",
         title:"RAG Chatbot",
         year:"2025",
         role:"LLM / RAG",
@@ -356,7 +380,7 @@ const DICT = {
         ]
       },
       {
-        tag:"05 — DATA",
+        tag:"06 — DATA",
         title:"Valencia Airbnb Insights",
         year:"2025",
         role:"Data analytics",
@@ -368,7 +392,7 @@ const DICT = {
         ]
       },
       {
-        tag:"06 — MOBILE",
+        tag:"07 — MOBILE",
         title:"GymTracker",
         year:"2024",
         role:"Native Android · Final project",
@@ -648,6 +672,34 @@ function ProjectVisual({kind}){
       </svg>
     );
   }
+  if(kind==='mail'){
+    return (
+      <svg viewBox="0 0 340 220" className="w-full h-full">
+        <rect width="340" height="220" fill="#0d0d0f"/>
+        {/* bandeja de entrada */}
+        {[...Array(9)].map((_,i)=>(
+          <rect key={i} x="24" y={54+i*14} width="52" height="9" fill="none"
+            stroke={(i===1||i===4||i===7) ? "oklch(0.78 0.18 142)" : "#3a3935"} strokeWidth="0.7"/>
+        ))}
+        {/* clasificador */}
+        <path d="M96 58 L162 96 L162 128 L96 166 Z" fill="none" stroke="#3a3935" strokeWidth="0.7"/>
+        <text x="129" y="115" fill="#8a8781" fontFamily="monospace" fontSize="7" textAnchor="middle">FILTER</text>
+        <line x1="76" y1="112" x2="96" y2="112" stroke="oklch(0.78 0.18 142)" strokeWidth="0.7" strokeDasharray="2,2"/>
+        <line x1="162" y1="112" x2="196" y2="112" stroke="oklch(0.78 0.18 142)" strokeWidth="0.7" strokeDasharray="2,2"/>
+        {/* digest */}
+        <rect x="196" y="86" width="52" height="52" rx="4" fill="none" stroke="oklch(0.78 0.18 142)" strokeWidth="0.8"/>
+        <text x="222" y="115" fill="#eeeae2" fontFamily="monospace" fontSize="8" textAnchor="middle">DIGEST</text>
+        {/* salidas */}
+        {[{label:"MAIL",y:99},{label:"TG",y:151}].map((o,i)=>(
+          <g key={i}>
+            <line x1="248" y1="112" x2="272" y2={o.y} stroke="#3a3935" strokeWidth="0.6"/>
+            <text x="278" y={o.y+3} fill="#8a8781" fontFamily="monospace" fontSize="7">{o.label}</text>
+          </g>
+        ))}
+        <text x="16" y="28" fill="#8a8781" fontFamily="monospace" fontSize="10">n8n · GPT-4o-MINI · GMAIL API</text>
+      </svg>
+    );
+  }
   // automation / fullstack
   return (
     <svg viewBox="0 0 340 220" className="w-full h-full">
@@ -677,7 +729,7 @@ function ProjectVisual({kind}){
     </svg>
   );
 }
-const KINDS = ['auto','rag','cnn','llm','data','mobile'];
+const KINDS = ['auto','mail','rag','cnn','llm','data','mobile'];
 
 function Projects({t}){
   const [active,setActive]=useState(null);
